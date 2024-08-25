@@ -1,16 +1,13 @@
-import { User } from '@/@types/entities';
-import { Text3, Text6 } from '@/components/Texts';
+import { Text3 } from '@/components/Texts';
+import Image from 'next/image';
 import { ComponentProps, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = ComponentProps<'div'> & {
-  userData?: User;
   children?: ReactNode;
 };
 
-export function SideMenuHeaderRoot({ className,children, userData, ...rest }: Props) {
-  const { alias } = userData ?? {};
-
+export function SideMenuHeaderRoot({ className, children, ...rest }: Props) {
   return (
     <div
       className={twMerge(
@@ -19,11 +16,11 @@ export function SideMenuHeaderRoot({ className,children, userData, ...rest }: Pr
       )}
       {...rest}
     >
-      <div className="flex justify-center items-center w-fit h-fit">
-        <span className="w-20 h-20 rounded-full bg-white" />
+      <div className="relative w-20 h-20 flex justify-center items-center">
+        <Image alt="Avatar" className="rounded-full" fill src={'/cute-dog.jpg'} />
       </div>
       <div className="flex-1 flex flex-col justify-between">
-        <Text3 className='text-white'>{`Olá, ${alias}`}</Text3>
+        <Text3 className="text-white">{`Olá!!`}</Text3>
         <div className="flex justify-end">{children}</div>
       </div>
     </div>

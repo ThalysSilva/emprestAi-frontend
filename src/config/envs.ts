@@ -26,7 +26,7 @@ function validateEnvs(envs: Record<string, Env>) {
 
 function getEnvs() {
   const undefinedEnvs = {
-    baseUrlApi: { value: process.env.NEXT_PUBLIC_URL_INCREDBULL_BFF },
+    baseUrlApi: { value: process.env.NEXT_PUBLIC_BASE_URL_API },
   };
   validateEnvs(undefinedEnvs);
 

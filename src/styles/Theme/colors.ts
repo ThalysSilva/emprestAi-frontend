@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const primaryColor = '#615EFC';
-const primaryLightColor = '#7E8EF1';
-const secondaryColor = '#D1D8C5';
-const secondaryLightColor = '#EEEEEE';
-const whiteColor = '#FFFFFF';
+const primaryColor = '#0A2971';
+const primaryLightColor = '#245E9F';
+const secondaryColor = '#307351';
+const secondaryLightColor = '#6D876C';
+const whiteColor = '#F2F3F4';
+const semiWhiteColor = '#E5E4E2';
 
 export const colors = {
   brand: {
@@ -13,9 +14,7 @@ export const colors = {
     secondaryLight: secondaryLightColor,
     white: whiteColor,
   },
-  aux: {
-    S7: '#FCAF17',
-  },
+
   alerts: {
     orange: '#F26E23',
     yellow: '#F1AD47',
@@ -28,10 +27,10 @@ export const colors = {
     gold: '#E39703',
   },
   background: {
-    primary: '#18181B',
-    primaryLight: '#E1E6ED',
+    primary: whiteColor,
+    primaryLight: semiWhiteColor,
   },
-  divider: { green: '#3AC658' },
+  divider: { green: '#3AC658', gray: '#C0C0C0' },
   borderColor: {
     primary: '#1e1e1e66',
     secondary: secondaryColor,

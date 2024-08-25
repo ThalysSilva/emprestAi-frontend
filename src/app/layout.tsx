@@ -5,6 +5,8 @@ import { Providers } from '@/providers';
 import type { Metadata } from 'next';
 import '../styles/globals.css';
 import { Titillium_Web, Alfa_Slab_One } from 'next/font/google';
+import { Menu } from '@/components/Menu';
+import { cn } from '@/utils/tailwind/className';
 
 export const metadata: Metadata = {
   description: 'Solicite seu empréstimo',
@@ -30,9 +32,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${titillium.variable} ${alfaSlab.variable} `}>
       <body>
         <Providers>
-          <main className="flex w-full flex-col items-center bg-zinc-800 min-h-screen">
-            {children}
-          </main>
+          <div className={cn('flex flex-col w-full', 'md:flex-row')}>
+            <Menu />
+            <main className="flex w-full flex-col items-center bg-background-primary min-h-screen">
+              {children}
+            </main>
+          </div>
           <ReactQueryDevtools initialIsOpen={false} />
         </Providers>
       </body>

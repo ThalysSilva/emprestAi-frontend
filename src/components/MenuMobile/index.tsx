@@ -8,15 +8,13 @@ import { SideMenuMobileModal } from './components';
 import { useMenuMobile } from './useMenuMobile';
 import { When } from '@/components/When';
 import { Hero } from '@/components/Hero';
-import { User } from '@/@types/entities';
 import { MenuItem } from '../Menu/types';
 
 type Props = {
-  userData?: User;
   items: MenuItem[];
 };
 
-export function MenuMobile({ userData, items }: Props) {
+export function MenuMobile({ items }: Props) {
   const {
     hasBackButton,
     show,
@@ -28,7 +26,7 @@ export function MenuMobile({ userData, items }: Props) {
   } = useMenuMobile();
   return (
     <div className="grid grid-cols-3 items-center bg-brand-primary h-16">
-      <SideMenuMobileModal closeMenu={closeMenu} show={show} userData={userData} items={items} />
+      <SideMenuMobileModal closeMenu={closeMenu} show={show} items={items} />
       <When value={!hasBackButton}>
         <div className="flex flex-1 justify-start">
           <ButtonIcon bgTransparent onClick={openMenu}>

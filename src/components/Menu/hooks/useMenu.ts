@@ -15,24 +15,12 @@ export function useMenu() {
 
   const menuItems = [
     {
-      label: 'Descubra',
-      onClick: () => push(webRoutes.discover),
+      label: 'Visualizar empréstimos',
+      onClick: () => push(webRoutes.viewLoans),
     },
     {
-      label: 'Calendário',
-      onClick: () => push(webRoutes.calendar),
-    },
-    {
-      label: 'Crie um evento',
-      onClick: () => push(webRoutes.createEvent),
-    },
-    {
-      label: 'Meus eventos',
-      onClick: () => push(webRoutes.myEvents),
-    },
-    {
-      label: 'Minha conta',
-      onClick: () => push(webRoutes.myAccount),
+      label: 'Cadastrar pessoas',
+      onClick: () => push(webRoutes.registerPerson),
     },
   ] as MenuItem[];
 
