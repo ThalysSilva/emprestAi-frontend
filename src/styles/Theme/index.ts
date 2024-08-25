@@ -1,5 +1,5 @@
 import { extendTheme, ThemeOverride } from '@chakra-ui/react';
-import * as colors from './colors';
+import { colors } from './colors';
 import { inputTheme } from './chakraComponentsTheme/input';
 import { ButtonChakraTheme } from './chakraComponentsTheme/button';
 import { accordionTheme } from './chakraComponentsTheme/accordion';

@@ -12,7 +12,7 @@ export function BigText1({ children, className = '', dataTestId }: Props) {
   return (
     <h1
       data-testid={dataTestId}
-      className={twMerge(`text-4xl lg:text-5xl font-bold text-brand-white ${className}`)}
+      className={twMerge(`text-4xl lg:text-5xl font-bold text-brand-primaryLight ${className}`)}
     >
       {children}
     </h1>
@@ -23,7 +23,7 @@ export function BigText2({ children, className = '', dataTestId }: Props) {
   return (
     <h1
       data-testid={dataTestId}
-      className={twMerge(`text-3xl lg:text-4xl text-brand-primary font-bold ${className}`)}
+      className={twMerge(`text-3xl lg:text-4xl text-brand-primaryLight font-bold ${className}`)}
     >
       {children}
     </h1>

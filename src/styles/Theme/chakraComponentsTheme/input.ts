@@ -22,7 +22,7 @@ const flushed = definePartsStyle({
 
 const outline = definePartsStyle({
   field: {
-    borderColor: 'borderColor.secondaryLight',
+    borderColor: 'borderColor.secondary',
     color: 'text.text.light',
     borderRadius: 8,
     borderWidth: 1,
