@@ -1,6 +1,5 @@
 'use client';
 
-import { User } from '@/@types/entities';
 import { MenuMobile } from '../MenuMobile';
 import { SideMenuDesktop } from '../SideMenuDesktop';
 import { When } from '../When';
