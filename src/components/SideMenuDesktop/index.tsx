@@ -1,4 +1,3 @@
-import { User } from '@/@types/entities';
 import { SideMenu } from '../SideMenu';
 import { Hero } from '../Hero';
 import { MenuItem } from '../Menu/types';
