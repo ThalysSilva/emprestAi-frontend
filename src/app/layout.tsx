@@ -34,8 +34,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <div className={cn('flex flex-col w-full', 'md:flex-row')}>
             <Menu />
-            <main className="flex w-full flex-col items-center bg-background-primary min-h-screen">
-              {children}
+            <main
+              className={cn(
+                'flex w-full h-fit flex-col items-center bg-background-primaryLight min-h-screen ',
+                'md:py-20 md:h-fit',
+              )}
+            >
+              <div
+                className={cn(
+                  'flex flex-col w-full h-full bg-background-primary items-center p-10',
+                  'md:h-fit md:max-w-2xl md:rounded-xl md:drop-shadow-2xl',
+                )}
+              >
+                {children}
+              </div>
             </main>
           </div>
           <ReactQueryDevtools initialIsOpen={false} />
