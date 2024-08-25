@@ -11,7 +11,7 @@ export function formatInput(
 ) {
   const elementId = event.target.id;
   const mask = createMask(maskOptions);
-  mask.resolve(event.target.value);
+  mask.unmaskedValue = event.target.value;
   const masked = mask.value;
 
   if (hookFormMethods) {
@@ -28,5 +28,5 @@ export function formatInput(
     setValue(elementId, masked, { shouldValidate });
   }
 
-  return { masked, unmasked: event.target.value };
+  return { masked, unmasked: mask.unmaskedValue };
 }
