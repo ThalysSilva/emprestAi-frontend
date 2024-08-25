@@ -5,6 +5,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 import { useButton } from './hooks/useButton';
 import { Spinner } from '@chakra-ui/react';
 import { twMerge } from 'tailwind-merge';
+import { cn } from '@/utils/tailwind/className';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   onClick?: (ev?: React.MouseEvent<HTMLElement>) => void;
@@ -30,10 +31,6 @@ export function Button({
 }: ButtonProps) {
   const { getAnimation } = useButton();
 
-  const styleButton = isOutlined
-    ? 'flex items-center justify-center gap-2 px-3 h-10 border  bg-transparent text-white border-borderColor-secondary rounded-md text-lg font-normal '
-    : 'flex items-center justify-center gap-2 px-3 h-10 bg-brand-secondaryLight  text-brand-primary rounded-md text-lg font-semibold ';
-
   return (
     <button
       {...rest}
@@ -41,7 +38,15 @@ export function Button({
       onClick={onClick}
       data-testid={dataTestId}
       type={type}
-      className={twMerge(styleButton + getAnimation(isDisabled), className)}
+      className={cn(
+        'flex items-center justify-center gap-2 px-3 h-10  rounded-md text-lg',
+        {
+          'border bg-transparent text-white border-borderColor-secondary font-normal ': isOutlined,
+          'bg-brand-primary text-brand-white font-semibold ': !isOutlined,
+        },
+        getAnimation(isDisabled),
+        className,
+      )}
     >
       {isLoading ? (
         <>
