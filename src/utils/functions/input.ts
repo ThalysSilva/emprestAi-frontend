@@ -10,7 +10,9 @@ export function formatInput(
   hookFormMethods?: UseFormReturn,
 ) {
   const elementId = event.target.id;
-  const masked = createMask(maskOptions).resolve(event.target.value);
+  const mask = createMask(maskOptions);
+  mask.resolve(event.target.value);
+  const masked = mask.value;
 
   if (hookFormMethods) {
     const {
