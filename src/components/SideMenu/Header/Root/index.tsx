@@ -20,7 +20,7 @@ export function SideMenuHeaderRoot({ className, children, ...rest }: Props) {
         <Image alt="Avatar" className="rounded-full" fill src={'/cute-dog.jpg'} />
       </div>
       <div className="flex-1 flex flex-col justify-between">
-        <Text3 className="text-white">{`Olá!!`}</Text3>
+        <Text3 className="text-brand-white">{`Olá!!`}</Text3>
         <div className="flex justify-end">{children}</div>
       </div>
     </div>

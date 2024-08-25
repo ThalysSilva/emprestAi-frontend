@@ -17,7 +17,7 @@ export function Hero({ size = 'large' }: Props) {
       }
       elseRender={
         <div className={`flex justify-center items-center h-12`}>
-          <Text3 className="font-alfaSlabOne font-normal text-white">{'EmprestAí'}</Text3>
+          <Text3 className="font-alfaSlabOne font-normal text-brand-white">{'EmprestAí'}</Text3>
         </div>
       }
     />

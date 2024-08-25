@@ -20,7 +20,7 @@ export function SideMenuItem({ text, children = null, className, ...rest }: Prop
       )}
       {...rest}
     >
-      <When value={children} render={children} elseRender={<Text5 className='text-white'>{text}</Text5>} />
+      <When value={children} render={children} elseRender={<Text5 className='text-brand-white'>{text}</Text5>} />
       <div className='w-full max-w-0 h-[2px] bg-brand-secondaryLight transition-all duration-200 group-hover:max-w-[300px]'/>
     </button>
   );
