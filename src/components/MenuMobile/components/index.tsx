@@ -32,9 +32,13 @@ export function SideMenuMobileModal({ closeMenu, show, items }: Props) {
             </div>
           </div>
           <SideMenu.Content className="px-4 gap-4">
-            {items.map((item, index) => (
-              <SideMenu.Item key={index} text={item.label} onClick={item.onClick} />
-            ))}
+            {items.map((item, index) => {
+              function handleClick() {
+                closeMenu();
+                item.onClick();
+              }
+              return <SideMenu.Item key={index} text={item.label} onClick={handleClick} />;
+            })}
           </SideMenu.Content>
         </div>
       </div>
