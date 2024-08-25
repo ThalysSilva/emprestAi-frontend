@@ -6,8 +6,10 @@ import { SubmitErrorHandler, UseFormReturn } from 'react-hook-form';
 import { UseFormProps } from 'react-hook-form';
 import { useCustomForm } from './hooks/useForm';
 import { FormProvider } from 'react-hook-form';
-import { twMerge } from 'tailwind-merge';
+import { type ClassValue } from 'clsx';
+
 import { z } from 'zod';
+import { cn } from '@/utils/tailwind/className';
 
 type Props<T extends Record<string, any>> = {
   children:
@@ -18,13 +20,13 @@ type Props<T extends Record<string, any>> = {
   onError?: SubmitErrorHandler<T>;
   zodSchema?: z.ZodSchema<T>;
   resetOnSubmit?: boolean;
-  classNameForm?: string;
+  className?: ClassValue | ClassValue[];
 };
 
 export function CustomForm<T extends Record<string, any>>({
   onSubmit: onSubmitProp,
   resetOnSubmit = false,
-  classNameForm = '',
+  className = [],
   useFormProps,
   zodSchema,
   children,
@@ -39,10 +41,12 @@ export function CustomForm<T extends Record<string, any>>({
 
   const currentError = Object.values(methods.formState.errors)[0]?.message as string;
 
+  const normalizedClassName = Array.isArray(className) ? className : [className];
+
   return (
     <FormProvider {...methods}>
       <form
-        className={twMerge('flex w-full flex-col ' + classNameForm)}
+        className={cn('flex w-full flex-col ', ...normalizedClassName)}
         onSubmit={methods.handleSubmit(onSubmit, onError)}
       >
         {typeof children === 'function'

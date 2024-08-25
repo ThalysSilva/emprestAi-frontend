@@ -54,7 +54,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>((props, re
       )}
     >
       <When value={label}>
-        <Text5 className={twMerge('mb-1 w-fit text-text-semiLight ', labelClassName)}>
+        <Text5 className={twMerge('mb-1 w-fit text-text-primary ', labelClassName)}>
           {label}
         </Text5>
       </When>
@@ -84,11 +84,11 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>((props, re
       </InputGroup>
       <div className="flex w-full flex-row justify-between">
         <When value={!hideError && error}>
-          <ErrorLabel messageError={error} white />
+          <ErrorLabel messageError={error} />
         </When>
         <When value={!hideMaxLengthLabel && maxLength}>
           <div className={'flex flex-row gap-2 items-center pr-4 h-max mt-2'}>
-            <label className={'text-[#646981] font-light text-xs leading-4'}>
+            <label className={'text-text-semiLight font-light text-xs leading-4'}>
               {charLen}/{maxLength}
             </label>
           </div>
