@@ -19,8 +19,12 @@ export function useMenu() {
       onClick: () => push(webRoutes.viewLoans),
     },
     {
-      label: 'Cadastrar pessoas',
+      label: 'Cadastrar nova pessoa',
       onClick: () => push(webRoutes.registerPerson),
+    },
+    {
+      label: 'Cadastrar novo empréstimo',
+      onClick: () => push(webRoutes.registerLoan),
     },
   ] as MenuItem[];
 
