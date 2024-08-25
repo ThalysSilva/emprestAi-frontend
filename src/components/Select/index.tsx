@@ -42,11 +42,11 @@ export function Select({
                 </When>
                 <SelectChakra
                   color={'text.semiLight'}
-                  
                   opacity={rest.opacity ?? 0.9}
                   _placeholder={{ color: '#B0B3C0' }}
-                  focusBorderColor={'borderColor.light'}
-                  borderColor={'borderColor.light'}
+                  focusBorderColor={'borderColor.secondary'}
+                  borderColor={'borderColor.secondary'}
+                  _hover={{ borderColor: 'borderColor.secondary' }}
                   borderRadius={'lg'}
                   pointerEvents={rest.isReadOnly ? 'none' : 'auto'}
                   bg={'transparent'}

@@ -3,13 +3,28 @@
 import { Button } from '@/components/Button';
 import { CustomForm } from '@/components/CustomForm';
 import { Input } from '@/components/Input';
-import { Text5, Text6 } from '@/components/Texts';
 import { registerPersonSchema } from '@/schemas/registerPersonSchema';
 import { formatInput } from '@/utils/functions/input';
 import { currencyBrazilianMask } from '@/utils/imask/masks';
 import { InstallmentAmount } from './components/InstallmentAmount';
+import { Select } from '@/components/Select';
+import { InputAutocomplete } from '@/components/CustomInputs/InputAutocomplete';
 
 export function RegisterLoanForm() {
+  const personOptionsMock = [
+    {
+      label: 'Felipe',
+      value: '123',
+    },
+    {
+      label: 'João',
+      value: '456',
+    },
+    {
+      label: 'Maria',
+      value: '789',
+    },
+  ];
   return (
     <CustomForm
       onSubmit={() => {}}
@@ -19,7 +34,7 @@ export function RegisterLoanForm() {
       {({ formContext }) => {
         return (
           <>
-            <Input label="Selecione uma pessoa" id="person" />
+            <InputAutocomplete label="Selecione uma pessoa" id="person" list={personOptionsMock} />
             <Input
               label="Valor do empréstimo"
               id="loanValue"

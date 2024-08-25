@@ -8,14 +8,15 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
 const flushed = definePartsStyle({
   field: {
     borderBottomWidth: 2,
-    borderColor: 'brand.secondaryLight',
-    color: 'brand.secondaryLight',
-    focusBorderColor: 'brand.secondaryLight',
+    borderColor: 'borderColor.secondary',
+    color: 'brand.secondary',
+    focusBorderColor: 'brand.secondary',
     paddingX: 2,
+    _hover: { borderColor: 'borderColor.secondary' },
     _focus: {
-      borderColor: 'brand.secondaryLight',
+      borderColor: 'borderColor.secondary',
       boxShadow:
-        '0 4px 4px -4px var(--chakra-colors-brand-secondaryLight),  inset 0 -6px 4px -7px var(--chakra-colors-brand-secondaryLight)',
+        '0 4px 4px -4px var(--chakra-colors-brand-secondary),  inset 0 -6px 4px -7px var(--chakra-colors-brand-secondary)',
     },
   },
 });
@@ -23,16 +24,16 @@ const flushed = definePartsStyle({
 const outline = definePartsStyle({
   field: {
     borderColor: 'borderColor.secondary',
-    color: 'text.text.light',
+    color: 'text.text.secondary',
     borderRadius: 8,
     borderWidth: 1,
-    focusBorderColor: 'borderColor.secondaryLight',
+    focusBorderColor: 'borderColor.secondary',
     _focus: {
       borderColor: 'borderColor.secondary',
-      boxShadow: '0 0 0 1px var(--chakra-colors-borderColor-secondaryLight)',
+      boxShadow: '0 0 0 1px var(--chakra-colors-borderColor-secondary)',
     },
-    _active: { borderColor: 'borderColor.secondaryLight' },
-    _hover: { borderColor: 'borderColor.secondaryLight' },
+    _active: { borderColor: 'borderColor.secondary' },
+    _hover: { borderColor: 'borderColor.secondary' },
     _focusVisible: { outline: 'none' },
   },
 });
@@ -40,14 +41,14 @@ const outline = definePartsStyle({
 const filled = definePartsStyle({
   field: {
     _readOnly: {
-      borderColor: 'borderColor.light',
+      borderColor: 'borderColor.secondary',
       backgroundColor: 'neutral.100',
     },
     _active: {
-      borderColor: 'borderColor.light',
+      borderColor: 'borderColor.secondary',
       backgroundColor: 'neutral.100',
     },
-    _focus: { borderColor: 'borderColor.light', backgroundColor: 'neutral.100' },
+    _focus: { borderColor: 'borderColor.secondary', backgroundColor: 'neutral.100' },
   },
 });
 
@@ -55,13 +56,13 @@ export const inputTheme = defineMultiStyleConfig({
   defaultProps: {
     variant: 'flushed',
   } as any,
-  baseStyle:{
-    field:{
-      _placeholder:{
+  baseStyle: {
+    field: {
+      _placeholder: {
         color: '#FFFFFF',
         opacity: 0.6,
-      }
-    }
+      },
+    },
   },
   variants: {
     flushed,
