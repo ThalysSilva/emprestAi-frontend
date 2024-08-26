@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { Titillium_Web } from 'next/font/google';
 import { colors } from './src/styles/Theme/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
@@ -31,7 +30,7 @@ module.exports = {
         '278': '17.375rem',
       },
       boxShadow: {
-        solid: `0px 0px 5px 1px ${colors.borderColor.secondary}, inset 0px 0px 5px 1px ${colors.borderColor.secondary}`,
+        solid: `0px 0px 5px 1px ${colors.borderColor.primary}, inset 0px 0px 5px 1px ${colors.borderColor.primary}`,
         flushed: `0 4px 4px -4px ${colors.brand.secondary},  inset 0 -6px 4px -7px ${colors.brand.secondary} `,
         left: `10px 0px 30px -7px rgba(0,0,0,0.1)`,
       },
