@@ -53,7 +53,7 @@ export const SnackbarMessage = ({ deleteSnackbar, snackbar, customRef }: Props) 
         }
         onClick={handleDeleteSnackbar}
       >
-        <CloseIcon color={'white'} height="2" width="2" />
+        <CloseIcon color={'white'} height="10" width="10" />
       </button>
     </div>
   );
