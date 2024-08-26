@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ComponentProps, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 

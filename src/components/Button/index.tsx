@@ -4,7 +4,6 @@ import React, { ButtonHTMLAttributes, ReactNode } from 'react';
 
 import { useButton } from './hooks/useButton';
 import { Spinner } from '@chakra-ui/react';
-import { twMerge } from 'tailwind-merge';
 import { cn } from '@/utils/tailwind/className';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {

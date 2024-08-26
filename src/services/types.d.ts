@@ -1,5 +1,5 @@
 import { ExtractInnerKeys } from '@/utils/types';
-import { apiRoutesNested, apiRoutes } from './routes';
+import { apiRoutesNested } from './routes';
 
 export type HttpMethods = 'POST' | 'GET' | ' UPDATE' | 'DELETE' | 'PATCH' | 'PUT';
 

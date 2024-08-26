@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+ 
 const primaryColor = '#0A2971';
 const primaryLightColor = '#245E9F';
 const secondaryColor = '#307351';

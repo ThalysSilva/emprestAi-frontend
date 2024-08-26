@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Text3 } from '@/components/Texts';
 import Image from 'next/image';
 import { ComponentProps, ReactNode } from 'react';

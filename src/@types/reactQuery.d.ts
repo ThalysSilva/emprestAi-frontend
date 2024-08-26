@@ -1,9 +1,6 @@
 import {
-  QueryFunctionContext,
   QueryKey,
   UseQueryOptions,
-  UseInfiniteQueryOptions,
-  DefinedInitialDataInfiniteOptions,
   UseMutationOptions,
   InfiniteQueryObserverOptions,
   FetchInfiniteQueryOptions,

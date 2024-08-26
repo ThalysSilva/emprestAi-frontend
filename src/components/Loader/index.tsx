@@ -1,9 +1,10 @@
+import React from 'react';
+
 import { colors } from '@/styles/Theme/colors';
 import { LoaderCircle, LucideProps } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 
-export const Loader: React.FC<LucideProps> = (props) => {
-  const { size = 24, className } = props;
+export const Loader: React.FC<LucideProps> = ({ size, className }) => {
   const { brand } = colors;
 
   return (

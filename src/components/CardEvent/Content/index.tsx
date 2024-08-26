@@ -1,5 +1,5 @@
 'use client';
-import { Text2, Text3, Text4, Text5 } from '@/components/Texts';
+import { Text2, Text5 } from '@/components/Texts';
 import { formatDatePTBR } from '@/utils/functions/date';
 import React, { ReactNode } from 'react';
 import { ThumbsUp, ChatsCircle } from '@phosphor-icons/react';

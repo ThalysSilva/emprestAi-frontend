@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { BigText2 } from '@/components/Texts';
 import { RegisterPersonForm } from './components/RegisterPersonForm';
 

@@ -1,4 +1,3 @@
-import { Text5 } from '@/components/Texts';
 import React, { ComponentProps, ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 

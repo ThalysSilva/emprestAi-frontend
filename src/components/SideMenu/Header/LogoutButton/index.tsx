@@ -1,4 +1,6 @@
 'use client';
+import React from 'react';
+
 import { useButton } from '@/components/Button/hooks/useButton';
 import { Text6 } from '@/components/Texts';
 import { signOut } from 'next-auth/react';

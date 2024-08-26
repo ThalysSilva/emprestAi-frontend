@@ -1,4 +1,4 @@
-import React, { ComponentProps, ReactNode } from 'react';
+import React, { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 export function CardEventBanner({ children, className, imageUrl, ...rest }: Props) {
   return (
     <div
-      style={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center'}}
+      style={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
       className={twMerge('flex flex-col w-full h-16 shadow-md', className)}
       {...rest}
     >

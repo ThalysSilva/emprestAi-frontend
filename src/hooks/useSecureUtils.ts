@@ -2,7 +2,6 @@
 
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import crypto from 'crypto-js';
-import config from '@/config';
 import { useLocalStorage } from '../../../../ca-lendario/src/hooks/useLocalStorage';
 
 type Props = {

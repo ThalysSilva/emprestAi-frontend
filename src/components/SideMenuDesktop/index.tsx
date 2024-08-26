@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { SideMenu } from '../SideMenu';
 import { Hero } from '../Hero';
 import { MenuItem } from '../Menu/types';

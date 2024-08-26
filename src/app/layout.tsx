@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Providers } from '@/providers';
@@ -7,7 +7,6 @@ import '../styles/globals.css';
 import { Titillium_Web, Alfa_Slab_One } from 'next/font/google';
 import { Menu } from '@/components/Menu';
 import { cn } from '@/utils/tailwind/className';
-import { Loader } from '@/components/Loader';
 
 export const metadata: Metadata = {
   description: 'Solicite seu empréstimo',
@@ -32,27 +31,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${titillium.variable} ${alfaSlab.variable} `}>
       <body>
-          <Providers>
-            <div className={cn('flex flex-col w-full', 'md:flex-row')}>
-              <Menu />
-              <main
+        <Providers>
+          <div className={cn('flex flex-col w-full', 'md:flex-row')}>
+            <Menu />
+            <main
+              className={cn(
+                'flex w-full h-fit flex-col items-center bg-background-primaryLight flex-1  max-h-screen overflow-auto',
+                'md:py-20 md:min-h-screen',
+              )}
+            >
+              <div
                 className={cn(
-                  'flex w-full h-fit flex-col items-center bg-background-primaryLight flex-1  max-h-screen overflow-auto',
-                  'md:py-20 md:min-h-screen',
+                  'flex flex-col w-full h-full bg-background-primary items-center p-10',
+                  'md:h-fit md:max-w-4xl md:rounded-xl md:drop-shadow-2xl',
                 )}
               >
-                <div
-                  className={cn(
-                    'flex flex-col w-full h-full bg-background-primary items-center p-10',
-                    'md:h-fit md:max-w-4xl md:rounded-xl md:drop-shadow-2xl',
-                  )}
-                >
-                  {children}
-                </div>
-              </main>
-            </div>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Providers>
+                {children}
+              </div>
+            </main>
+          </div>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Providers>
       </body>
     </html>
   );

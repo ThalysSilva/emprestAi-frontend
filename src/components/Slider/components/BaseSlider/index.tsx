@@ -23,43 +23,46 @@ export type BaseSliderProps = SliderChakraProps & {
   label?: string;
 };
 
-export const Slider = forwardRef<HTMLInputElement, BaseSliderProps>((props, ref) => {
-  const {
-    containerClassName = '',
-    inputClassName = '',
-    variant = 'outline',
-    anotherFields,
-    onKeyDown,
-    hideError,
-    error,
-    ...rest
-  } = props;
-
-  return (
-    <div className={twMerge(`flex-col w-full min-w-fit ` + containerClassName)}>
-      <InputGroup>
-        <SliderChakra
-          onKeyDown={onKeyDown}
-          className={twMerge(`${inputClassName}`)}
-          variant={variant}
-          ref={ref}
-          {...anotherFields}
-          {...rest}
-        >
-          <SliderTrackChakra bg={'grey'}>
-            <SliderFilledTrackChakra bg={colors.brand.primaryLight} />
-          </SliderTrackChakra>
-          <SliderThumbChakra boxSize={6} borderColor={colors.brand.secondary} />
-        </SliderChakra>
-      </InputGroup>
-      <When value={!hideError && error}>
-        <div
-          data-testid={'messageValidation'}
-          className={'flex flex-row gap-2 items-center pl-4 h-max mt-2'}
-        >
-          <label className={'text-alerts-red font-light text-xs leading-4'}>{error}</label>
-        </div>
-      </When>
-    </div>
-  );
-});
+export const Slider = forwardRef<HTMLInputElement, BaseSliderProps>(
+  (
+    {
+      containerClassName = '',
+      inputClassName = '',
+      variant = 'outline',
+      anotherFields,
+      onKeyDown,
+      hideError,
+      error,
+      ...rest
+    }: BaseSliderProps,
+    ref,
+  ) => {
+    return (
+      <div className={twMerge(`flex-col w-full min-w-fit ` + containerClassName)}>
+        <InputGroup>
+          <SliderChakra
+            onKeyDown={onKeyDown}
+            className={twMerge(`${inputClassName}`)}
+            variant={variant}
+            ref={ref}
+            {...anotherFields}
+            {...rest}
+          >
+            <SliderTrackChakra bg={'grey'}>
+              <SliderFilledTrackChakra bg={colors.brand.primaryLight} />
+            </SliderTrackChakra>
+            <SliderThumbChakra boxSize={6} borderColor={colors.brand.secondary} />
+          </SliderChakra>
+        </InputGroup>
+        <When value={!hideError && error}>
+          <div
+            data-testid={'messageValidation'}
+            className={'flex flex-row gap-2 items-center pl-4 h-max mt-2'}
+          >
+            <label className={'text-alerts-red font-light text-xs leading-4'}>{error}</label>
+          </div>
+        </When>
+      </div>
+    );
+  },
+);

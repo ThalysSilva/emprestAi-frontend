@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 
 import { Table } from '@/components/Table';
 import { useContentHome } from './hooks/useContentHome';

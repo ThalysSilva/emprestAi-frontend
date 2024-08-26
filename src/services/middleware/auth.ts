@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 
 
 export async function withAuthInstance(request: AxiosInstance) {
-  const token = undefined // não é necessário autenticação
+  const token = undefined; // não é necessário autenticação
 
   request.interceptors.request.use(async (requestConfig) => {
     const newRequestConfigHeaders = {

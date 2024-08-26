@@ -1,5 +1,6 @@
+import React from 'react';
+
 import { Button } from '@/components/Button';
-import { cn } from '@/utils/tailwind/className';
 
 type Props = {
   isDisabled?: boolean;

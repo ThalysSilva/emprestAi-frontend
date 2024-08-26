@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ReactNode } from 'react';
 import { Text1 } from '../Texts';
 

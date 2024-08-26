@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Text5, Text6 } from '@/components/Texts';
 import { toBrazilianCurrency, unmaskBrazilianCurrency } from '@/utils/formaters/masks';
 import { useFormContext } from 'react-hook-form';

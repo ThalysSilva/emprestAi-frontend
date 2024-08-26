@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { cn } from '@/utils/tailwind/className';
 import { ActionButtonProps } from '../types';
 import { SecondaryButton } from '../SecondaryButton';

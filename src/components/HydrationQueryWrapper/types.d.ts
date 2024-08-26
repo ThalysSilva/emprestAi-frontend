@@ -4,7 +4,7 @@ import { PaginationData, Params, RouteName } from '@/services/types';
 import { QueryKey } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
 
-export type CallRouteParams<T extends any> = {
+export type CallRouteParams<T = any> = {
   routeName: RouteName;
   params?: Params;
   query?: Params;

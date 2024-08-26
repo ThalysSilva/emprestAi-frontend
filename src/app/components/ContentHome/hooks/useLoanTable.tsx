@@ -1,4 +1,4 @@
-import { mockLoanData } from '../const';
+import React from 'react';
 import { ColumnConfig } from '@/components/Table/types';
 import { GetInnerKeysOfObjectsArray } from '@/utils/types';
 import moment from 'moment';
