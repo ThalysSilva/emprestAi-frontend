@@ -27,6 +27,8 @@ const alfaSlab = Alfa_Slab_One({
   weight: ['400'],
 });
 
+export const fetchCache = 'default-no-store';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${titillium.variable} ${alfaSlab.variable} `}>
