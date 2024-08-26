@@ -32,14 +32,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${titillium.variable} ${alfaSlab.variable} `}>
       <body>
-        <Suspense fallback={<Loader />}>
           <Providers>
             <div className={cn('flex flex-col w-full', 'md:flex-row')}>
               <Menu />
               <main
                 className={cn(
-                  'flex w-full h-fit flex-col items-center bg-background-primaryLight min-h-screen max-h-screen overflow-auto',
-                  'md:py-20 ',
+                  'flex w-full h-fit flex-col items-center bg-background-primaryLight flex-1  max-h-screen overflow-auto',
+                  'md:py-20 md:min-h-screen',
                 )}
               >
                 <div
@@ -54,7 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
             <ReactQueryDevtools initialIsOpen={false} />
           </Providers>
-        </Suspense>
       </body>
     </html>
   );
