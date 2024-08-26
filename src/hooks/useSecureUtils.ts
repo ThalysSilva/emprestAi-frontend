@@ -2,7 +2,7 @@
 
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import crypto from 'crypto-js';
-import { useLocalStorage } from '../../../../ca-lendario/src/hooks/useLocalStorage';
+import { useLocalStorage } from './useLocalStorage';
 
 type Props = {
   defaultHash?: string;
