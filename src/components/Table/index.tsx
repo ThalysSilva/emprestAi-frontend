@@ -53,7 +53,7 @@ export function Table<T extends DataItem>({
 
   return (
     <div className={`flex flex-col w-full gap-2 ${marginBotton ? `mb-${marginBotton}` : 'mb-10'}`}>
-      <div className="flex flex-col rounded overflow-hidden">
+      <div className="flex flex-col rounded overflow-hidden ">
         <THead<DataKeys<T>>
           handleSortingChange={handleSortingChange}
           className={headClassName}

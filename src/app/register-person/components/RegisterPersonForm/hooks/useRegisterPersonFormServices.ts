@@ -5,7 +5,7 @@ import { RegisterPersonData } from '@/services/types/person/returnData';
 export function useRegisterPersonFormServices() {
   const registerPersonMutation = useCreateMutation<RegisterPersonData, RegisterPersonPayload>({
     routeName: 'registerPerson',
-    invalidateQueriesKeys: ['getAllPersons'],
+    invalidateQueriesKeys: ['persons'],
     successText: 'Pessoa cadastrada com sucesso!',
   });
   return { registerPersonMutation };
