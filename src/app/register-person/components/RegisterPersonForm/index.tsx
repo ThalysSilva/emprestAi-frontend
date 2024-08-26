@@ -5,11 +5,13 @@ import { CustomForm } from '@/components/CustomForm';
 import { Input } from '@/components/Input';
 import { registerPersonSchema } from '@/schemas/registerPersonSchema';
 import { formatInput } from '@/utils/functions/input';
+import { useRegisterPersonForm } from './hooks/useRegisterPersonForm';
 
 export function RegisterPersonForm() {
+  const { handleSubmit, registerPersonMutation } = useRegisterPersonForm();
   return (
     <CustomForm
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
       className={' max-w-[350px] gap-4'}
       zodSchema={registerPersonSchema}
     >
@@ -23,7 +25,7 @@ export function RegisterPersonForm() {
           />
           <Input label="Identificação" id="identification" />
           <div className="flex justify-end mt-4">
-            <Button onClick={() => {}}>Cadastrar</Button>
+            <Button isLoading={registerPersonMutation.isPending}>Cadastrar</Button>
           </div>
         </>
       )}
