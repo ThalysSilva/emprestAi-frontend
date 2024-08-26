@@ -1,8 +1,7 @@
-import { ExtractInnerKeys } from '@/helpers/types';
-import { apiRoutes, apiRoutesNested } from "./routes";
+import { ExtractInnerKeys } from '@/utils/types';
+import { apiRoutesNested, apiRoutes } from './routes';
 
-
-export type HttpMethods = "POST" | "GET" | " UPDATE" | "DELETE" | "PATCH" | "PUT";
+export type HttpMethods = 'POST' | 'GET' | ' UPDATE' | 'DELETE' | 'PATCH' | 'PUT';
 
 export type DefaultResponse<T> = {
   success: boolean;
@@ -17,13 +16,11 @@ export type ApiRouter = {
   uri: string;
 };
 
-
 export type NestedRoutes = {
   [key: string]: ApiRouterObject;
 };
 
 export type ApiRoutesNestedType = typeof apiRoutesNested;
-
 
 export type RouterGroupName = keyof ApiRoutesNestedType;
 export type RouteName = ExtractInnerKeys<ApiRoutesNestedType>;

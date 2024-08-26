@@ -78,8 +78,11 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   useEffect(() => {
     if (!returnQuery.isError) return;
 
-    const typedError = returnQuery.error as AxiosError;
-    const { message } = typedError;
+    const typedError = returnQuery.error as AxiosError<
+      PaginationData<ReturnDataItem> & { message: string }
+    >;
+    const { response } = typedError;
+    const message = response?.data.message ?? 'Ocorreu um erro inesperado';
 
     if (showToastOnError) {
       dispatchSnackbar({

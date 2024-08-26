@@ -66,8 +66,9 @@ export function useCreateQuery<ReturnData = any>({
 
   useEffect(() => {
     if (returnQuery.isError) {
-      const typedError = returnQuery.error as AxiosError;
-      const { message } = typedError;
+      const typedError = returnQuery.error as AxiosError<{ message: string }>;
+      const { response } = typedError;
+      const message = response?.data?.message || 'Ocorreu um erro inesperado';
 
       if (showToastOnError) {
         dispatchSnackbar({

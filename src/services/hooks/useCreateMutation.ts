@@ -34,8 +34,9 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
   const queryClient = useQueryClient();
   const { dispatchSnackbar } = useSnackbarContext();
 
-  function onError(error: AxiosError<ReturnData, null>) {
-    const { message } = error;
+  function onError(error: AxiosError<ReturnData & { message: string }, null>) {
+    const { response } = error;
+    const message = response?.data?.message ?? 'Erro ao realizar a operação';
 
     if (showToastOnError) {
       dispatchSnackbar({

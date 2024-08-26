@@ -3,7 +3,7 @@ import { HttpMethods, Params, RouteName } from '../types';
 import { baseUrl } from '@/config/service';
 import { withAuthInstance } from './auth';
 import { mountUrl } from '@/utils/functions/url';
-import { apiRoutes } from '../router';
+import { apiRoutes } from '../routes';
 
 type RequestAxiosProps<PayloadType> = {
   selectedApi?: keyof typeof baseUrl;
