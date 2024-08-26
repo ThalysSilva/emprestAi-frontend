@@ -13,10 +13,12 @@ export type Option<T = string> = {
 export type ButtonProps = {
   label?: string;
   onClick?: () => void;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
 };
 
-export type SortDirection = "asc" | "desc";
+export type SortDirection = 'asc' | 'desc';
+
+export type GetInnerKeysOfObjectsArray<T> = keyof T[0];
 
 export type DataItem = { [key: string]: string | number };
 
@@ -30,5 +32,6 @@ export type ExtractInnerKeys<T> = {
   [K in keyof T]: keyof T[K];
 }[keyof T];
 
-
-export type SelectorReturnType<Selector, Type> = Selector extends (state: any) => infer R ? R : Type;
+export type SelectorReturnType<Selector, Type> = Selector extends (state: any) => infer R
+  ? R
+  : Type;
