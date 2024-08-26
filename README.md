@@ -1,6 +1,8 @@
 ## EmprestÁi
 
 Criação de um projeto para exemplificar minhas habilidades com nextJs em um case financeiro.
+
+Link para acessar a aplicação já em produção: https://emprest-ai-frontend.vercel.app
 ### Tecnologias utilizadas:
 - Next.js v14
 - Chakra Ui
