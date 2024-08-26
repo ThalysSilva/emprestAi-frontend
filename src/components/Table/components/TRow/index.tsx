@@ -12,11 +12,18 @@ type Props<T> = {
   data?: any;
 };
 
-const { primaryLight } = colors.background;
-export function TRow<T = string>({ columns, isOdd, alternateColor = primaryLight, className = '', renderEdit, data }: Props<T>) {
+const { primaryLight, primary } = colors.background;
+export function TRow<T = string>({
+  columns,
+  isOdd,
+  alternateColor = primaryLight,
+  className = '',
+  renderEdit,
+  data,
+}: Props<T>) {
   const [active, setActive] = useState(false);
   const length = columns.reduce((acc, { columnSize }) => acc + (columnSize ?? 1), 0);
-  const editable = (renderEdit && renderEdit() && active);
+  const editable = renderEdit && renderEdit() && active;
 
   return (
     <div
@@ -26,17 +33,17 @@ export function TRow<T = string>({ columns, isOdd, alternateColor = primaryLight
     >
       <div
         style={{
-          backgroundColor: isOdd ? alternateColor : '',
+          backgroundColor: isOdd ? alternateColor : primary,
           width: '100%',
+          gridTemplateColumns: `repeat(${length}, minmax(0, 1fr))`,
         }}
-        className={`grid grid-cols-${length} items-center justify-center max-w-full h-fit gap-3 rounded-md py-5 px-3 xl:px-8 ${className}`}
+        className={`grid items-center justify-center max-w-full h-fit gap-3 py-5 px-3 xl:px-8 ${className}`}
       >
         {columns.map(({ label, className = '', columnSize = 1, render }, index) => {
-
           const renderer = render ? (
             render(label)
           ) : (
-            <p className={`text-table-text-normal h-full text-[14px] ${className} `}>{label}</p>
+            <p className={`text-table-text-normal h-full text-[14px] ${className}`}>{label}</p>
           );
 
           return (
