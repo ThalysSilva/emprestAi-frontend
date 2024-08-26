@@ -8,25 +8,13 @@ import { currencyBrazilianMask } from '@/utils/imask/masks';
 import { InstallmentAmount } from './components/InstallmentAmount';
 import { InputAutocomplete } from '@/components/CustomInputs/InputAutocomplete';
 import { registerLoanSchema } from '@/schemas/registerLoanSchema';
+import { useRegisterLoanForm } from './hooks/useRegisterLoanForm';
 
 export function RegisterLoanForm() {
-  const personOptionsMock = [
-    {
-      label: 'Felipe - id: 12345678',
-      value: '12345678',
-    },
-    {
-      label: 'João  - id: 45678901',
-      value: '45678901',
-    },
-    {
-      label: 'Maria - id: 789012345',
-      value: '789012345',
-    },
-  ];
+  const { personOptions, registerLoanMutation, handleSubmit } = useRegisterLoanForm();
   return (
     <CustomForm
-      onSubmit={() => {}}
+      onSubmit={handleSubmit}
       className={' max-w-[350px] gap-4'}
       zodSchema={registerLoanSchema}
     >
@@ -36,7 +24,7 @@ export function RegisterLoanForm() {
             <InputAutocomplete
               label="Escolha uma pessoa"
               id="identification"
-              list={personOptionsMock}
+              list={personOptions}
             />
             <Input
               label="Valor do empréstimo"
@@ -52,7 +40,7 @@ export function RegisterLoanForm() {
               <InstallmentAmount installmentQtyId="installmentsQty" loanValueId="loanValue" />
             </div>
             <div className="flex justify-end mt-4">
-              <Button className="m-0" onClick={() => {}}>
+              <Button isLoading={registerLoanMutation.isPending} className="m-0">
                 Cadastrar
               </Button>
             </div>
