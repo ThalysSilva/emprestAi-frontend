@@ -4,6 +4,8 @@ import { BigText2 } from '@/components/Texts';
 import { ContentHome } from './components/ContentHome';
 import { HydrationQueryWrapper } from '@/components/HydrationQueryWrapper';
 
+export const fetchCache = 'force-no-store';
+
 export default async function Home() {
   return (
     <HydrationQueryWrapper
