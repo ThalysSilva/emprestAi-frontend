@@ -38,8 +38,6 @@ export async function HydrationQueryWrapper<ReturnData = unknown>({
     }
 
     for (const orderedCall of orderedCalls) {
-      const startTime = new Date().getTime();
-
       await Promise.all(
         orderedCall.map((call) => {
           if (call.isInfinity) {
@@ -64,12 +62,6 @@ export async function HydrationQueryWrapper<ReturnData = unknown>({
             ...fetchQueryOptions,
           });
         }),
-      );
-
-      const endTime = new Date().getTime();
-      const timeTaken = (endTime - startTime) / 1000;
-      console.log(
-        `Prefetched ${orderedCall[0].order ?? 0} at ${new Date().toISOString()} in ${timeTaken} seconds`,
       );
     }
   }
