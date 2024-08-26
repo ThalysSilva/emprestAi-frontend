@@ -1,5 +1,6 @@
 import { Option } from '@/utils/types';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 type ListItem = {
   value: string;
@@ -11,15 +12,31 @@ type Props = {
   id: string;
   dispatchActionOnSelect?: (option: Option) => void;
   label?: string;
+  withoutControl?: boolean;
 };
 
 const optionEmpty = { value: '', label: '' };
 
-export function useInputAutocomplete({ dispatchActionOnSelect, label = '', list, id }: Props) {
+export function useInputAutocomplete({
+  dispatchActionOnSelect,
+  label = '',
+  list,
+  id,
+  withoutControl,
+}: Props) {
   const [listFiltered, setListFiltered] = useState<ListItem[]>([]);
   const [positionTop, setPositionTop] = useState('0px');
   const [selectedItem, setSelectedItem] = useState<ListItem>(optionEmpty);
   const [showList, setShowList] = useState(false);
+  const {
+    register,
+    setValue,
+    unregister,
+    formState: { errors },
+  } = useFormContext();
+  const messageError = errors[id]?.message as string;
+
+  const shouldValidate = !!messageError;
 
   function handleBlur() {
     setTimeout(() => {
@@ -63,7 +80,15 @@ export function useInputAutocomplete({ dispatchActionOnSelect, label = '', list,
     setSelectedItem(item);
     setListFiltered([]);
     if (dispatchActionOnSelect) dispatchActionOnSelect(item);
+    if (withoutControl) return;
+    setValue(id, item.value, { shouldValidate });
   }
+
+  useEffect(() => {
+    if (withoutControl) return;
+    register(id);
+    return () => unregister(id);
+  }, [id, register, withoutControl, unregister]);
 
   return {
     showList,
@@ -74,5 +99,6 @@ export function useInputAutocomplete({ dispatchActionOnSelect, label = '', list,
     onSelectItem,
     handleBlur,
     handleFocus,
+    messageError,
   };
 }

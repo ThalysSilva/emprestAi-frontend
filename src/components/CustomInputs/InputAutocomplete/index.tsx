@@ -5,7 +5,6 @@ import { Text4 } from '../../Texts';
 import { Option, OptionList } from '@/utils/types';
 import { BaseInput } from '@/components/Input/components/BaseInput';
 import { cn } from '@/utils/tailwind/className';
-import { Input } from '@/components/Input';
 
 type Props = {
   dispatchActionOnSelect?: (option: Option) => void;
@@ -41,8 +40,10 @@ export function InputAutocomplete({
     handleBlur,
     handleFocus,
     showList,
+    messageError,
   } = useInputAutocomplete({
     dispatchActionOnSelect,
+    withoutControl,
     label,
     list,
     id,
@@ -50,13 +51,9 @@ export function InputAutocomplete({
 
   return (
     <div className="relative flex flex-col text-start w-full group">
-      <Input
-        id={id}
-        type={'hidden'}
-        value={selectedItem.value ?? ''}
-        withoutControl={withoutControl}
-      />
+      <input id={id + '-value'} type={'hidden'} value={selectedItem.value ?? ''} />
       <BaseInput
+        error={messageError}
         value={selectedItem.label ?? ''}
         placeholder={placeholder}
         label={label}
