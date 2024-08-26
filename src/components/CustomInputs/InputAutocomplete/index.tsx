@@ -86,7 +86,7 @@ export function InputAutocomplete({
               'w-full flex h-[25px] cursor-pointer px-4 bg-background-primary hover:bg-background-primaryLight'
             }
           >
-            <Text4>{item.label}</Text4>
+            <Text4 className='text-nowrap overflow-hidden items-center'>{item.label}</Text4>
           </div>
         ))}
       </div>

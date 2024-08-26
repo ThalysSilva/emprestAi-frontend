@@ -5,9 +5,16 @@ import moment from 'moment';
 import { Button } from '@/components/Button';
 import { personIdentificationTypeLabel } from '@/constants/person';
 import { toBrazilianCurrency } from '@/utils/formaters/masks';
+import { Loan } from '@/@types/entities/loan';
 
-export function useLoanTable() {
-  const unNormalizedDataTable = mockLoanData;
+type Props = {
+  loans: Loan[];
+  onPayInstallment: (loanId: string) => void;
+  disableActions?: boolean;
+};
+
+export function useLoanTable({ loans, onPayInstallment }: Props) {
+  const unNormalizedDataTable = loans;
 
   const dataTable = unNormalizedDataTable.map(
     ({ person, installments, updatedAt: _updatedAt, createdAt: _createdAt, ...loan }) => {
@@ -91,7 +98,7 @@ export function useLoanTable() {
       keyName: 'payInstallmentAction',
       label: 'Ações',
       columnSize: 1,
-      render: (value) => <Button onClick={() => console.log(value)}>Pagar</Button>,
+      render: (value) => <Button onClick={() => onPayInstallment(value)}>Pagar</Button>,
     },
   ] as ColumnConfig<GetInnerKeysOfObjectsArray<typeof dataTable>>[];
 

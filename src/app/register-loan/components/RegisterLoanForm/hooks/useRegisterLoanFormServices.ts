@@ -7,12 +7,12 @@ import { RegisterLoanData } from '@/services/types/loan/returnData';
 export function useRegisterLoanFormServices() {
   const getAllPersonsQuery = useCreateQuery<Person[]>({
     routeName: 'getAllPersons',
-    queriesKeys: ['getAllPersons'],
+    queriesKeys: ['persons'],
   });
 
   const registerLoanMutation = useCreateMutation<RegisterLoanData, RegisterLoanPayload>({
     routeName: 'registerLoan',
-    invalidateQueriesKeys: ['getAllLoans'],
+    invalidateQueriesKeys: ['loans'],
     successText: 'Empréstimo cadastrado com sucesso!',
   });
   return { registerLoanMutation, getAllPersonsQuery };

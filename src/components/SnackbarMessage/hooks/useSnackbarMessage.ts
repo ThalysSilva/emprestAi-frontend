@@ -6,7 +6,7 @@ type Props = {
   snackbar: SnackbarProps;
 };
 export function useSnackbarMessage({ deleteSnackbar, snackbar }: Props) {
-  const TIME_TO_LIVE_NOTIFICATION_IN_SECONDS = 60;
+  const TIME_TO_LIVE_NOTIFICATION_IN_SECONDS = 10;
   const TIME_TO_LIVE_NOTIFICATION_IN_MS = TIME_TO_LIVE_NOTIFICATION_IN_SECONDS * 1000;
   const [show, setShow] = useState(true);
 

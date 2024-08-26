@@ -23,7 +23,11 @@ export function RegisterPersonForm() {
             id="birthdate"
             onChange={(e) => formatInput(e, { mask: '00/00/0000' }, formContext)}
           />
-          <Input label="Identificação" id="identification" />
+          <Input
+            label="Identificação"
+            id="identification"
+            onChange={(e) => formatInput(e, { mask: '00000000000000' }, formContext)}
+          />
           <div className="flex justify-end mt-4">
             <Button isLoading={registerPersonMutation.isPending}>Cadastrar</Button>
           </div>

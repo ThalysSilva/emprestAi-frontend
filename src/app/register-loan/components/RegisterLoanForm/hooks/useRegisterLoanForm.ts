@@ -1,4 +1,3 @@
-import { RegisterPersonSchemaData } from '@/schemas/registerPersonSchema';
 import { useRegisterLoanFormServices } from './useRegisterLoanFormServices';
 import { RegisterLoanSchemaData } from '@/schemas/registerLoanSchema';
 
