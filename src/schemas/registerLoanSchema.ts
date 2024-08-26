@@ -1,7 +1,19 @@
 import { z } from 'zod';
 import { unmaskBrazilianCurrency } from '@/utils/formaters/masks';
 
-export const registerLoanSchema = z.object({
+type RegisterLoanInput = {
+  identification: string;
+  loanValue: string;
+  installmentsQty: string;
+};
+
+type RegisterLoanOutput = {
+  identification: string;
+  loanValue: number;
+  installmentsQty: number;
+};
+
+export const baseSchema = z.object({
   identification: z
     .string({ required_error: 'Escolha uma pessoa' })
     .min(8, 'Selecione uma pessoa')
@@ -9,14 +21,15 @@ export const registerLoanSchema = z.object({
   loanValue: z
     .string({ required_error: 'Digite um valor' })
     .min(1, 'Digite um valor válido')
-    .refine((value) => {
-      const loanValue = unmaskBrazilianCurrency(value);
+    .transform(unmaskBrazilianCurrency)
+    .refine((loanValue) => {
       return loanValue > 0;
     }, 'Digite um valor válido'),
   installmentsQty: z
     .string({ required_error: 'digite um valor' })
     .min(1, 'Digite um valor válido')
     .max(2, 'Digite um valor válido')
+    .transform(Number)
     .refine((value) => {
       const installmentsQty = Number(value);
       return installmentsQty > 0;
@@ -26,5 +39,7 @@ export const registerLoanSchema = z.object({
       return installmentsQty <= 24;
     }, 'Digite um valor menor ou igual a 24'),
 });
+export const registerLoanSchema: z.ZodType<RegisterLoanOutput, z.ZodTypeDef, RegisterLoanInput> =
+  baseSchema;
 
 export type RegisterLoanSchemaData = z.infer<typeof registerLoanSchema>;

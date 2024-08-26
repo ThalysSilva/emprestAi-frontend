@@ -11,7 +11,8 @@ export const registerPersonSchema = z.object({
       const currentDate = moment();
       const birthDate = moment(value, 'DD/MM/YYYY');
       return birthDate.isValid() && birthDate.isBefore(currentDate);
-    }, 'Digite uma data de nascimento válida'),
+    }, 'Digite uma data de nascimento válida')
+    .transform((value) => moment(value, 'DD/MM/YYYY').toISOString()),
   identification: z
     .string()
     .min(8, 'Digite uma identificação')
