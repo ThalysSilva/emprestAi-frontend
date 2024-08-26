@@ -1,12 +1,14 @@
 import { ApiRouter, ApiRouterObject, RouteName, RouterGroupName } from './types';
 
 export const apiRoutesNested = {
-  authentication: {
-    login: { method: 'POST', uri: '/login' },
-    register: { method: 'POST', uri: '/register' },
+  person: {
+    registerPerson: { method: 'POST', uri: '/person' },
+    getAllPerson: { method: 'GET', uri: '/person' },
   },
-  miscellaneous: {
-    getCep: { method: 'GET', uri: '/:cep/json/' },
+  loan: {
+    registerLoan: { method: 'POST', uri: '/loan' },
+    getAllLoan: { method: 'GET', uri: '/loan' },
+    payInstallment: { method: 'POST', uri: '/loan/pay-installment/:loanId' },
   },
 } as const;
 
