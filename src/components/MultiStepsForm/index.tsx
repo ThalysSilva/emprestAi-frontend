@@ -59,7 +59,7 @@ export function MultiStepsForm<T extends string>({
       onSubmit={handleSubmit}
       zodSchema={zodSchema}
       key={currentStepKey}
-      classNameForm={twMerge('flex-1 items-center', classNameForm)}
+      className={twMerge('flex-1 items-center', classNameForm)}
     >
       {Render}
     </CustomForm>

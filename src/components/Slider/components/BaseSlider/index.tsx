@@ -47,9 +47,9 @@ export const Slider = forwardRef<HTMLInputElement, BaseSliderProps>((props, ref)
           {...rest}
         >
           <SliderTrackChakra bg={'grey'}>
-            <SliderFilledTrackChakra bg={colors.brand.secondary} />
+            <SliderFilledTrackChakra bg={colors.brand.primaryLight} />
           </SliderTrackChakra>
-          <SliderThumbChakra boxSize={6} borderColor={colors.aux.S7} />
+          <SliderThumbChakra boxSize={6} borderColor={colors.brand.secondary} />
         </SliderChakra>
       </InputGroup>
       <When value={!hideError && error}>
