@@ -1,29 +1,26 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-
-import { SubmitErrorHandler, UseFormReturn } from 'react-hook-form';
-import { UseFormProps } from 'react-hook-form';
-import { useCustomForm } from './hooks/useForm';
+import { SubmitErrorHandler, UseFormReturn, UseFormProps } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
-import { type ClassValue } from 'clsx';
-
-import { z } from 'zod';
+import { ZodType, ZodTypeDef } from 'zod';
 import { cn } from '@/utils/tailwind/className';
+import { type ClassValue } from 'clsx';
+import { useCustomForm } from './hooks/useForm';
 
-type Props<T extends Record<string, any>> = {
+type Props<Input extends Record<string, any>, Output extends Record<string, any>> = {
   children:
     | ReactNode
-    | ((props: { currentError?: string; formContext: UseFormReturn }) => ReactNode);
-  useFormProps?: Omit<UseFormProps, 'resolver'>;
-  onSubmit: (data: T) => void | Promise<void>;
-  onError?: SubmitErrorHandler<T>;
-  zodSchema?: z.ZodSchema<T>;
+    | ((props: { currentError?: string; formContext: UseFormReturn<Output> }) => ReactNode);
+  useFormProps?: Omit<UseFormProps<Output>, 'resolver'>;
+  onSubmit: (data: Output) => void | Promise<void>;
+  onError?: SubmitErrorHandler<Output>;
+  zodSchema?: ZodType<Output, ZodTypeDef, Input>;
   resetOnSubmit?: boolean;
   className?: ClassValue | ClassValue[];
 };
 
-export function CustomForm<T extends Record<string, any>>({
+export function CustomForm<Input extends Record<string, any>, Output extends Record<string, any>>({
   onSubmit: onSubmitProp,
   resetOnSubmit = false,
   className = [],
@@ -31,10 +28,10 @@ export function CustomForm<T extends Record<string, any>>({
   zodSchema,
   children,
   onError,
-}: Props<T>) {
-  const { methods } = useCustomForm({ useFormProps, zodSchema });
+}: Props<Input, Output>) {
+  const { methods } = useCustomForm<Input, Output>({ useFormProps, zodSchema });
 
-  async function onSubmit(data: T) {
+  async function onSubmit(data: Output) {
     await onSubmitProp(data);
     if (resetOnSubmit) methods.reset(undefined, { keepIsSubmitted: false });
   }

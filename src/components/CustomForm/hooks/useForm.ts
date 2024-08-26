@@ -1,16 +1,17 @@
-import { UseFormProps } from 'react-hook-form';
+import { useForm, UseFormReturn, UseFormProps, FieldValues } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { ZodType, ZodTypeDef } from 'zod';
 
-type Props = {
-  useFormProps?: Omit<UseFormProps, 'resolver'>;
-  zodSchema?: z.ZodSchema<any>;
+type UseCustomFormProps<Input, Output extends FieldValues> = {
+  useFormProps?: Omit<UseFormProps<Output>, 'resolver'>;
+  zodSchema?: ZodType<Output, ZodTypeDef, Input>;
 };
 
-export function useCustomForm({ useFormProps, zodSchema }: Props) {
-  const methods = useForm<z.infer<typeof zodSchema | any>>({
-    reValidateMode: 'onChange',
+export function useCustomForm<Input extends Record<string, any>, Output extends FieldValues>({
+  useFormProps,
+  zodSchema,
+}: UseCustomFormProps<Input, Output>): { methods: UseFormReturn<Output> } {
+  const methods = useForm<Output>({
     ...useFormProps,
     resolver: zodSchema ? zodResolver(zodSchema) : undefined,
   });
