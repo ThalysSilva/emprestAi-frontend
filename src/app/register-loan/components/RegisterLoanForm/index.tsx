@@ -3,38 +3,41 @@
 import { Button } from '@/components/Button';
 import { CustomForm } from '@/components/CustomForm';
 import { Input } from '@/components/Input';
-import { registerPersonSchema } from '@/schemas/registerPersonSchema';
 import { formatInput } from '@/utils/functions/input';
 import { currencyBrazilianMask } from '@/utils/imask/masks';
 import { InstallmentAmount } from './components/InstallmentAmount';
-import { Select } from '@/components/Select';
 import { InputAutocomplete } from '@/components/CustomInputs/InputAutocomplete';
+import { registerLoanSchema } from '@/schemas/registerLoanSchema';
 
 export function RegisterLoanForm() {
   const personOptionsMock = [
     {
-      label: 'Felipe',
-      value: '123',
+      label: 'Felipe - id: 12345678',
+      value: '12345678',
     },
     {
-      label: 'João',
-      value: '456',
+      label: 'João  - id: 45678901',
+      value: '45678901',
     },
     {
-      label: 'Maria',
-      value: '789',
+      label: 'Maria - id: 789012345',
+      value: '789012345',
     },
   ];
   return (
     <CustomForm
       onSubmit={() => {}}
       className={' max-w-[350px] gap-4'}
-      zodSchema={registerPersonSchema}
+      zodSchema={registerLoanSchema}
     >
       {({ formContext }) => {
         return (
           <>
-            <InputAutocomplete label="Selecione uma pessoa" id="person" list={personOptionsMock} />
+            <InputAutocomplete
+              label="Escolha uma pessoa"
+              id="identification"
+              list={personOptionsMock}
+            />
             <Input
               label="Valor do empréstimo"
               id="loanValue"
@@ -44,7 +47,7 @@ export function RegisterLoanForm() {
               <Input
                 label="Quantidade de parcelas"
                 id="installmentsQty"
-                onChange={(e) => formatInput(e, { mask: '000' }, formContext)}
+                onChange={(e) => formatInput(e, { mask: '00' }, formContext)}
               />
               <InstallmentAmount installmentQtyId="installmentsQty" loanValueId="loanValue" />
             </div>
