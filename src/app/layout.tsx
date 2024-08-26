@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div
                 className={cn(
                   'flex flex-col w-full h-full bg-background-primary items-center p-10',
-                  'md:h-fit md:max-w-2xl md:rounded-xl md:drop-shadow-2xl',
+                  'md:h-fit md:max-w-4xl md:rounded-xl md:drop-shadow-2xl',
                 )}
               >
                 {children}
