@@ -1,7 +1,6 @@
 import { AxiosInstance } from 'axios';
 
-
-export async function withAuthInstance(request: AxiosInstance) {
+export async function withAuthAxiosInstance(request: AxiosInstance) {
   const token = undefined; // não é necessário autenticação
 
   request.interceptors.request.use(async (requestConfig) => {
@@ -17,4 +16,20 @@ export async function withAuthInstance(request: AxiosInstance) {
 
     return newRequestConfig;
   });
+}
+
+export async function getFetchRequestWithAuth(requestInit: RequestInit) {
+  const token = undefined; // não é necessário autenticação
+
+  const newRequestHeaders = {
+    ...requestInit.headers,
+    Authorization: `Bearer ${token ?? ''}`,
+  };
+
+  const newRequest = {
+    ...requestInit,
+    headers: { ...newRequestHeaders },
+  } as RequestInit;
+
+  return newRequest;
 }

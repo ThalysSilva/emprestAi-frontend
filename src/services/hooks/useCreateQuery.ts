@@ -3,15 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { Params, RouteName } from '../types';
 import { baseUrl } from '@/config/service';
 import { useEffect } from 'react';
-import { AxiosError, AxiosRequestConfig } from 'axios';
-import { requestAxios } from '../middleware';
+import { requestFetch } from '../middleware';
 import { getQueryClient } from '../reactQuery';
 import { useSnackbarContext } from '@/contexts/Snackbar';
 // import { queryClient as queryClientMain } from '../reactQuery';
 
 export type CreateQueryProps<ReturnData = unknown> = {
   queriesKeys: readonly (string | number | object)[];
-  onError?: (error: AxiosError) => boolean | void;
+  onError?: (error: unknown) => boolean | void;
   queryOptions?: QueryOptions<ReturnData>;
   onSuccess?: (data?: ReturnData) => void;
   selectedApi?: keyof typeof baseUrl;
@@ -20,7 +19,7 @@ export type CreateQueryProps<ReturnData = unknown> = {
   enabled?: boolean;
   params?: Params;
   query?: Params;
-  axiosConfig?: AxiosRequestConfig<ReturnData>;
+  config?: RequestInit;
   canAbort?: boolean;
 };
 
@@ -35,25 +34,25 @@ export function useCreateQuery<ReturnData = any>({
   onError,
   params,
   query,
-  axiosConfig,
+  config,
   canAbort = false,
 }: CreateQueryProps<ReturnData>) {
   const { dispatchSnackbar } = useSnackbarContext();
   const queryClient = getQueryClient();
   const defaultOptions = queryClient.getDefaultOptions().queries as typeof queryOptions;
-  function handleQuery(signal: AbortSignal) {
-    return requestAxios<ReturnData, null>({
+  async function handleQuery(signal: AbortSignal) {
+    const res = await requestFetch<ReturnData, null>({
       selectedApi,
       routeName,
       params,
       query,
       config: {
-        ...axiosConfig,
-        signal: canAbort ? signal : axiosConfig?.signal,
+        ...config,
+        signal: canAbort ? signal : config?.signal,
       },
-    }).then((res) => {
-      return res.data;
+      queryKeys: queriesKeys,
     });
+    return res;
   }
 
   const returnQuery = useQuery({
@@ -66,9 +65,9 @@ export function useCreateQuery<ReturnData = any>({
 
   useEffect(() => {
     if (returnQuery.isError) {
-      const typedError = returnQuery.error as AxiosError<{ message: string }>;
-      const { response } = typedError;
-      const message = response?.data?.message || 'Ocorreu um erro inesperado';
+      const typedError = returnQuery.error as { data: { message: string } };
+      const { data } = typedError;
+      const message = data?.message || 'Ocorreu um erro inesperado';
 
       if (showToastOnError) {
         dispatchSnackbar({

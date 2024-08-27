@@ -2,19 +2,18 @@ import { PaginationData, Params, RouteName } from '../types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { baseUrl } from '@/config/service';
 import { useEffect } from 'react';
-import { AxiosError, AxiosRequestConfig } from 'axios';
 import { InfiniteQueryOptions } from '@/@types/reactQuery';
-import { requestAxios } from '../middleware';
+import { requestFetch } from '../middleware';
 import { useSnackbarContext } from '@/contexts/Snackbar';
 import { getNextPageParam, getQueryClient, selectDataInfinityQuery } from '../reactQuery';
 
 export type CreateQueryProps<ReturnDataItem = unknown> = {
   infiniteQueryOptions?: Partial<InfiniteQueryOptions<PaginationData<ReturnDataItem>>>;
   queriesKeys: readonly (string | number | object)[];
-  onError?: (error: AxiosError) => boolean | void;
+  onError?: (error: unknown) => boolean | void;
   onSuccess?: (data?: PaginationData<ReturnDataItem>) => void;
   selectedApi?: keyof typeof baseUrl;
-  axiosConfig?: AxiosRequestConfig<PaginationData<ReturnDataItem>>;
+  config?: RequestInit;
   showToastOnError?: boolean;
   routeName: RouteName;
   enabled?: boolean;
@@ -31,7 +30,7 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   queriesKeys,
   onSuccess,
   routeName,
-  axiosConfig,
+  config,
   onError,
   params,
   query,
@@ -42,22 +41,22 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   const defaultOptions = queryClient.getDefaultOptions()
     .queries as typeof infinityQueryOptionsProps;
 
-  function handleQuery(page: number, signal: AbortSignal) {
-    return requestAxios<PaginationData<ReturnDataItem>, null>({
+  async function handleQuery(page: number, signal: AbortSignal) {
+    const data = await requestFetch<PaginationData<ReturnDataItem>, null>({
       selectedApi,
       routeName,
       params,
       config: {
         signal: canAbort ? signal : undefined,
-        ...axiosConfig,
+        ...config,
       },
       query: {
         page,
         ...query,
       },
-    }).then((res) => {
-      return res.data;
+      queryKeys: queriesKeys,
     });
+    return data;
   }
 
   const { initialPageParam, ...infiniteQueryOptions } = infinityQueryOptionsProps ?? {};
@@ -78,11 +77,8 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   useEffect(() => {
     if (!returnQuery.isError) return;
 
-    const typedError = returnQuery.error as AxiosError<
-      PaginationData<ReturnDataItem> & { message: string }
-    >;
-    const { response } = typedError;
-    const message = response?.data.message ?? 'Ocorreu um erro inesperado';
+    const data = returnQuery.error as { message: string };
+    const message = data.message ?? 'Ocorreu um erro inesperado';
 
     if (showToastOnError) {
       dispatchSnackbar({
@@ -90,7 +86,7 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
         type: 'error',
       });
     }
-    onError?.(typedError);
+    onError?.(data);
   }, [returnQuery.isError]);
 
   useEffect(() => {

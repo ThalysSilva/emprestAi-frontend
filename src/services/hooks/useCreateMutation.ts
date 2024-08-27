@@ -1,6 +1,6 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { requestAxios } from '../middleware';
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { requestFetch } from '../middleware';
+import { AxiosError } from 'axios';
 import { MutateOptions } from '@/@types/reactQuery';
 import { Params, RouteName } from '../types';
 import { useSnackbarContext } from '@/contexts/Snackbar';
@@ -8,8 +8,8 @@ import { useSnackbarContext } from '@/contexts/Snackbar';
 export type CreateMutationProps<T = any> = {
   mutateOptions?: MutateOptions<T, any, any, any>;
   multiInvalidateQueriesKeys?: unknown[][];
-  onError?: (error: AxiosError<T>) => void;
-  axiosConfig?: AxiosRequestConfig<T>;
+  onError?: (error: unknown) => void;
+  config?: RequestInit;
   invalidateQueriesKeys?: unknown[];
   onSuccess?: (data?: T) => void;
   showToastOnError?: boolean;
@@ -23,7 +23,7 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
   multiInvalidateQueriesKeys,
   showToastOnError = true,
   invalidateQueriesKeys,
-  axiosConfig = {},
+  config = {},
   setQueriesKeys,
   mutateOptions,
   routeName,
@@ -85,11 +85,14 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
     signal?: AbortSignal;
     query?: Params;
   }) {
-    const { data } = await requestAxios<ReturnData, typeof payload>({
+    const data = await requestFetch<ReturnData, typeof payload>({
       config: {
-        ...axiosConfig,
-        signal: canAbort ? signal : axiosConfig.signal,
+        ...config,
+        signal: canAbort ? signal : config.signal,
       },
+      invalidateKeys: invalidateQueriesKeys,
+      multiInvalidationKeys: multiInvalidateQueriesKeys,
+      queryKeys: setQueriesKeys,
       routeName,
       payload,
       params,

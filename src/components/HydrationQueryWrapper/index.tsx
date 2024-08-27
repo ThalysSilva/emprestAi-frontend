@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CustomFetchInfiniteQueryOptions, CustomFetchQueryOptions } from '@/@types/reactQuery';
-import { requestAxios } from '@/services/middleware';
+import { requestFetch } from '@/services/middleware';
 import { getNextPageParam, getQueryClient } from '@/services/reactQuery';
 import { PaginationData } from '@/services/types';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -28,7 +28,7 @@ export async function HydrationQueryWrapper<ReturnData = unknown>({
     });
 
     async function handleQuery<T = unknown>(call: CallRouteParams<ReturnData>, pageParam?: number) {
-      const data = await requestAxios<T, null>({
+      const data = await requestFetch<T, null>({
         selectedApi: call.selectedApi,
         routeName: call.routeName,
         params: call.params,
@@ -36,9 +36,10 @@ export async function HydrationQueryWrapper<ReturnData = unknown>({
           page: pageParam ?? '',
           ...call.query,
         },
-        config: call.axiosConfig,
+        config: call.requestConfig,
+        queryKeys: call.queryKey,
       });
-      return data.data;
+      return data;
     }
 
     for (const orderedCall of orderedCalls) {
