@@ -13,7 +13,6 @@ type Props<ReturnData = unknown> = {
   calls: CallRouteParams<ReturnData>[];
 };
 
-export const fetchCache = 'force-no-store';
 
 export async function HydrationQueryWrapper<ReturnData = unknown>({
   children,

@@ -1,9 +1,9 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { requestFetch } from '../middleware';
-import { AxiosError } from 'axios';
 import { MutateOptions } from '@/@types/reactQuery';
 import { Params, RouteName } from '../types';
 import { useSnackbarContext } from '@/contexts/Snackbar';
+import { ResponseError } from '@/utils/types';
 
 export type CreateMutationProps<T = any> = {
   mutateOptions?: MutateOptions<T, any, any, any>;
@@ -34,9 +34,9 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
   const queryClient = useQueryClient();
   const { dispatchSnackbar } = useSnackbarContext();
 
-  function onError(error: AxiosError<ReturnData & { message: string }, null>) {
-    const { response } = error;
-    const message = response?.data?.message ?? 'Erro ao realizar a operação';
+  function onError(error: Error) {
+    const { data } = error as ResponseError;
+    const message = data.message ?? 'Erro ao realizar a operação';
 
     if (showToastOnError) {
       dispatchSnackbar({
@@ -45,7 +45,7 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
       });
     }
 
-    statusFunctions.onError?.(error);
+    statusFunctions.onError?.(data);
   }
 
   async function onSuccess(data: ReturnData) {

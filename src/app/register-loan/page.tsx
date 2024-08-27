@@ -4,7 +4,6 @@ import { BigText2 } from '@/components/Texts';
 import { RegisterLoanForm } from './components/RegisterLoanForm';
 import { HydrationQueryWrapper } from '@/components/HydrationQueryWrapper';
 
-export const fetchCache = 'force-no-store';
 
 export default async function RegisterLoan() {
   return (

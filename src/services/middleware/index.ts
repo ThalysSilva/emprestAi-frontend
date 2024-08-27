@@ -6,6 +6,8 @@ import { mountUrl } from '@/utils/functions/url';
 import { apiRoutes } from '../routes';
 import { QueryKey } from '@tanstack/react-query';
 import { revalidateTag } from 'next/cache';
+import { ResponseError } from '@/utils/types';
+import { verifyWindowIsAvailable } from '@/utils/functions/document';
 
 type RequestProps<PayloadType, Config = Record<string, any>> = {
   selectedApi?: keyof typeof baseUrl;
@@ -15,8 +17,6 @@ type RequestProps<PayloadType, Config = Record<string, any>> = {
   params?: Params;
   query?: Params;
 };
-
-export const fetchCache = 'force-no-store';
 
 export async function requestAxios<ReturnDataType, PayloadType>({
   selectedApi = 'default',
@@ -96,12 +96,13 @@ export async function requestFetch<ReturnDataType, PayloadType>({
   const queryKeysString = JSON.stringify(queryKeys);
 
   const _requestInit: RequestInit = {
-    ...config,
     method,
     headers,
     next: {
       tags: [queryKeysString],
     },
+    cache: 'no-cache',
+    ...config,
   };
 
   const requestInit = withAuth ? await getFetchRequestWithAuth(_requestInit) : _requestInit;
@@ -117,19 +118,21 @@ export async function requestFetch<ReturnDataType, PayloadType>({
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error({ ...errorData, status: response.status });
+      const error = new Error('Erro na requisição');
+      (error as any).data = errorData;
+      throw error as ResponseError;
     }
 
     if (isMutation) {
       if (multiInvalidationKeys?.length) {
         multiInvalidationKeys.forEach((key) => {
           const keyString = JSON.stringify(key);
-          revalidateTag(keyString);
+          if (!verifyWindowIsAvailable()) revalidateTag(keyString);
         });
       } else {
         const invalidateKeysString = JSON.stringify(invalidateKeys);
 
-        revalidateTag(invalidateKeysString);
+        if (!verifyWindowIsAvailable()) revalidateTag(invalidateKeysString);
       }
     }
     const data: ReturnDataType = await response.json();

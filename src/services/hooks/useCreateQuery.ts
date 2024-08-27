@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { requestFetch } from '../middleware';
 import { getQueryClient } from '../reactQuery';
 import { useSnackbarContext } from '@/contexts/Snackbar';
+import { ResponseError } from '@/utils/types';
 // import { queryClient as queryClientMain } from '../reactQuery';
 
 export type CreateQueryProps<ReturnData = unknown> = {
@@ -65,7 +66,7 @@ export function useCreateQuery<ReturnData = any>({
 
   useEffect(() => {
     if (returnQuery.isError) {
-      const typedError = returnQuery.error as { data: { message: string } };
+      const typedError = returnQuery.error as ResponseError;
       const { data } = typedError;
       const message = data?.message || 'Ocorreu um erro inesperado';
 

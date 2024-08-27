@@ -6,6 +6,7 @@ import { InfiniteQueryOptions } from '@/@types/reactQuery';
 import { requestFetch } from '../middleware';
 import { useSnackbarContext } from '@/contexts/Snackbar';
 import { getNextPageParam, getQueryClient, selectDataInfinityQuery } from '../reactQuery';
+import { ResponseError } from '@/utils/types';
 
 export type CreateQueryProps<ReturnDataItem = unknown> = {
   infiniteQueryOptions?: Partial<InfiniteQueryOptions<PaginationData<ReturnDataItem>>>;
@@ -77,7 +78,7 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   useEffect(() => {
     if (!returnQuery.isError) return;
 
-    const data = returnQuery.error as { message: string };
+    const data = returnQuery.error as ResponseError;
     const message = data.message ?? 'Ocorreu um erro inesperado';
 
     if (showToastOnError) {
