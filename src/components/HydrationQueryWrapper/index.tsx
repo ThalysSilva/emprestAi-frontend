@@ -4,28 +4,35 @@ import { CustomFetchInfiniteQueryOptions, CustomFetchQueryOptions } from '@/@typ
 import { requestFetch } from '@/services/middleware';
 import { getNextPageParam, getQueryClient } from '@/services/reactQuery';
 import { PaginationData } from '@/services/types';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary, QueryKey } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 import { CallRouteParams } from './types';
+
+type DataSet = {
+  queryKey: QueryKey;
+  data: unknown;
+};
 
 type Props<ReturnData = unknown> = {
   children: ReactNode;
   calls: CallRouteParams<ReturnData>[];
+  dataSets?: DataSet[];
 };
-
 
 export async function HydrationQueryWrapper<ReturnData = unknown>({
   children,
   calls,
+  dataSets,
 }: Props<ReturnData>) {
   const queryClient = getQueryClient();
-  async function makeCalls() {
-    const orderedCalls: CallRouteParams<ReturnData>[][] = [];
-
-    calls.forEach((call) => {
-      orderedCalls[call.order ?? 0] = [...(orderedCalls[call.order ?? 0] ?? []), call];
+  function hydrateDataSets() {
+    if (!dataSets) return;
+    dataSets.forEach(({ queryKey, data }) => {
+      queryClient.setQueryData(queryKey, data);
     });
+  }
 
+  async function makeCalls() {
     async function handleQuery<T = unknown>(call: CallRouteParams<ReturnData>, pageParam?: number) {
       const data = await requestFetch<T, null>({
         selectedApi: call.selectedApi,
@@ -41,35 +48,34 @@ export async function HydrationQueryWrapper<ReturnData = unknown>({
       return data;
     }
 
-    for (const orderedCall of orderedCalls) {
-      await Promise.all(
-        orderedCall.map((call) => {
-          if (call.isInfinity) {
-            const { initialPageParam, ...fetchInfiniteQueryOptions } = (call.fetchQueryOptions ??
-              {}) as CustomFetchInfiniteQueryOptions<PaginationData<ReturnData>>;
+    const callPromises = calls.map((call) => {
+      if (call.isInfinity) {
+        const { initialPageParam, ...fetchInfiniteQueryOptions } = (call.fetchQueryOptions ??
+          {}) as CustomFetchInfiniteQueryOptions<PaginationData<ReturnData>>;
 
-            const initialPageParamNormalized = (initialPageParam as number) ?? 0;
-            return queryClient.prefetchInfiniteQuery({
-              initialPageParam: initialPageParamNormalized,
-              queryKey: call.queryKey,
-              queryFn: ({ pageParam }) =>
-                handleQuery<PaginationData<ReturnData>>(call, pageParam as number),
-              getNextPageParam,
-              ...fetchInfiniteQueryOptions,
-            });
-          }
-          const fetchQueryOptions = call.fetchQueryOptions as CustomFetchQueryOptions<ReturnData>;
+        const initialPageParamNormalized = (initialPageParam as number) ?? 0;
+        return queryClient.prefetchInfiniteQuery({
+          initialPageParam: initialPageParamNormalized,
+          queryKey: call.queryKey,
+          queryFn: ({ pageParam }) =>
+            handleQuery<PaginationData<ReturnData>>(call, pageParam as number),
+          getNextPageParam,
+          ...fetchInfiniteQueryOptions,
+        });
+      }
+      const fetchQueryOptions = call.fetchQueryOptions as CustomFetchQueryOptions<ReturnData>;
 
-          return queryClient.prefetchQuery({
-            queryKey: call.queryKey,
-            queryFn: () => handleQuery<ReturnData>(call),
-            ...fetchQueryOptions,
-          });
-        }),
-      );
-    }
+      return queryClient.prefetchQuery({
+        queryKey: call.queryKey,
+        queryFn: () => handleQuery<ReturnData>(call),
+        ...fetchQueryOptions,
+      });
+    });
+
+    await Promise.all(callPromises);
   }
-
+  
+  hydrateDataSets();
   await makeCalls();
 
   return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;

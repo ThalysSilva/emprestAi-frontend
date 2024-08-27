@@ -14,5 +14,4 @@ export type CallRouteParams<T = any> = {
   selectedApi?: keyof typeof baseUrl;
   queryKey: QueryKey;
   isInfinity?: boolean;
-  order?: number;
 };
