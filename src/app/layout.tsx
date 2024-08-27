@@ -10,7 +10,7 @@ import { cn } from '@/utils/tailwind/className';
 
 export const metadata: Metadata = {
   description: 'Solicite seu empréstimo',
-  title: 'Emprestaí',
+  title: 'EmprestAí',
 };
 
 const titillium = Titillium_Web({
