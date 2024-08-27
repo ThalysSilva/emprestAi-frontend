@@ -1,4 +1,4 @@
-## EmprestÁi
+## EmprestAí
 
 Criação de um projeto para exemplificar minhas habilidades com nextJs em um case financeiro.
 
