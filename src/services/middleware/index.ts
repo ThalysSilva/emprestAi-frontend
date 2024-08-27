@@ -14,6 +14,8 @@ type RequestAxiosProps<PayloadType> = {
   query?: Params;
 };
 
+export const fetchCache = 'force-no-store';
+
 export async function requestAxios<ReturnDataType, PayloadType>({
   selectedApi = 'default',
   routeName,
