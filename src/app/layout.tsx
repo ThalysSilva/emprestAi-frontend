@@ -38,14 +38,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Menu />
             <main
               className={cn(
-                'flex w-full h-fit flex-col items-center bg-background-primaryLight flex-1  max-h-screen overflow-auto',
-                'md:py-20 md:min-h-screen',
+                'flex w-full h-fit flex-col items-center bg-background-primaryLight flex-1 min-h-[calc(100dvh-64px)] max-h-[calc(100dvh-64px)] overflow-auto',
+                'md:py-20 md:min-h-screen md:max-h-screen',
               )}
             >
               <div
                 className={cn(
-                  'flex flex-col w-full h-full bg-background-primary items-center p-10',
-                  'md:h-fit md:max-w-4xl md:rounded-xl md:drop-shadow-2xl',
+                  'flex flex-col w-full bg-background-primary items-center p-10 flex-1',
+                  ' md:max-w-4xl md:rounded-xl md:drop-shadow-2xl md:flex-none',
                 )}
               >
                 {children}
