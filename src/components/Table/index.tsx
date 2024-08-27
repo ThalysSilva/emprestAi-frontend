@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ColumnConfig, ColumnHeadStyle, ColumnStyle } from './types';
+import { ColumnHeadStyle, ColumnsConfig, ColumnStyle, DataTable, DataTableItem } from './types';
 import { ListPagination } from '../ListPagination';
 import { DataItem, DataKeys } from '@/utils/types';
 import { useTable } from './hooks/useTable';
@@ -10,10 +10,10 @@ import { colors } from '@/styles/Theme/colors';
 import { THead } from './components/THead';
 import { TRow } from './components/TRow';
 
-type Props<T extends DataItem> = {
-  data?: T[];
+type Props<T extends DataTableItem<keyof T>> = {
+  data?: DataTable<keyof T>;
   columnsHeadStyle?: ColumnHeadStyle<DataKeys<T>>[];
-  columnsConfig: ColumnConfig<DataKeys<T>>[];
+  columnsConfig: ColumnsConfig<T[]>;
   columnsStyle?: ColumnStyle<DataKeys<T>>[];
   columnsToFilter?: DataKeys<T>[];
   alternateColor?: string;

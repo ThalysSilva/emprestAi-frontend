@@ -1,6 +1,5 @@
 import React from 'react';
-import { ColumnConfig } from '@/components/Table/types';
-import { GetInnerKeysOfObjectsArray } from '@/utils/types';
+import { ColumnsConfig } from '@/components/Table/types';
 import moment from 'moment';
 import { Button } from '@/components/Button';
 import { personIdentificationTypeLabel } from '@/constants/person';
@@ -13,7 +12,7 @@ type Props = {
   disableActions?: boolean;
 };
 
-export function useLoanTable({ loans, onPayInstallment }: Props) {
+export function useLoanTable({ loans, onPayInstallment, disableActions }: Props) {
   const unNormalizedDataTable = loans;
 
   const dataTable = unNormalizedDataTable.map(
@@ -98,9 +97,13 @@ export function useLoanTable({ loans, onPayInstallment }: Props) {
       keyName: 'payInstallmentAction',
       label: 'Ações',
       columnSize: 1,
-      render: (value) => <Button onClick={() => onPayInstallment(value)}>Pagar</Button>,
+      render: (value) => (
+        <Button onClick={() => onPayInstallment(value)} isDisabled={disableActions}>
+          Pagar
+        </Button>
+      ),
     },
-  ] as ColumnConfig<GetInnerKeysOfObjectsArray<typeof dataTable>>[];
+  ] as ColumnsConfig<typeof dataTable>;
 
   return { columnsConfig, dataTable };
 }
