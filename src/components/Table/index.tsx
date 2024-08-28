@@ -4,7 +4,7 @@ import React from 'react';
 
 import { ColumnHeadStyle, ColumnsConfig, ColumnStyle, DataTable, DataTableItem } from './types';
 import { ListPagination } from '../ListPagination';
-import { DataItem, DataKeys } from '@/utils/types';
+import { DataKeys } from '@/utils/types';
 import { useTable } from './hooks/useTable';
 import { colors } from '@/styles/Theme/colors';
 import { THead } from './components/THead';
@@ -26,7 +26,7 @@ type Props<T extends DataTableItem<keyof T>> = {
   renderEdit?: any;
 };
 
-export function Table<T extends DataItem>({
+export function Table<T extends DataTableItem<keyof T>>({
   columnsHeadStyle,
   columnsToFilter,
   stringToFilter,

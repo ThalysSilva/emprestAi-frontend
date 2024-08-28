@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { DataItem, DataKeys, SortDirection } from '@/utils/types';
-import { ColumnConfig, ColumnHeadStyle } from '../types';
+import { DataKeys, SortDirection } from '@/utils/types';
+import { ColumnHeadStyle, ColumnsConfig, DataTable, DataTableItem } from '../types';
 import { validateCPF } from '@/utils/functions/validations';
 import { onlyNumber } from '@/utils/formaters/masks';
 
-type Props<T extends DataItem> = {
+type Props<T extends DataTableItem<keyof T>> = {
+  data?: DataTable<keyof T>;
   columnsHeadStyle?: ColumnHeadStyle<DataKeys<T>>[];
-  columnsConfig: ColumnConfig<DataKeys<T>>[];
+  columnsConfig: ColumnsConfig<T[]>;
   columnsToFilter?: DataKeys<T>[];
   stringToFilter?: string;
-  data?: T[];
 };
 
-export function useTable<T extends DataItem>({
+export function useTable<T extends DataTableItem<keyof T>>({
   columnsHeadStyle,
   columnsToFilter,
   stringToFilter,
@@ -21,7 +21,7 @@ export function useTable<T extends DataItem>({
   data,
 }: Props<T>) {
   const [tableData, setTableData] = useState(data);
-  const [sortField, setSortField] = useState<DataKeys<T>>('');
+  const [sortField, setSortField] = useState<DataKeys<T> | null>(null);
   const [order, setOrder] = useState<SortDirection>('asc');
   const [paginateItems, setPaginateItems] = useState<T[]>([]);
 
