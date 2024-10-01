@@ -1,12 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { HttpMethods, Params, RouteName } from '../types';
+import { HttpMethods, Params, ResponseError, RouteName } from '../types';
 import { baseUrl } from '@/config/service';
 import { getFetchRequestWithAuth, withAuthAxiosInstance } from './auth';
 import { mountUrl } from '@/utils/functions/url';
 import { apiRoutes } from '../routes';
 import { QueryKey } from '@tanstack/react-query';
 import { revalidateTag } from 'next/cache';
-import { ResponseError } from '@/utils/types';
 import { verifyWindowIsAvailable } from '@/utils/functions/document';
 
 type RequestProps<PayloadType, Config = Record<string, any>> = {

@@ -1,13 +1,11 @@
 import { QueryOptions } from '@/@types/reactQuery';
 import { useQuery } from '@tanstack/react-query';
-import { Params, RouteName } from '../types';
+import { Params, ResponseError, RouteName } from '../types';
 import { baseUrl } from '@/config/service';
 import { useEffect } from 'react';
 import { requestFetch } from '../middleware';
 import { getQueryClient } from '../reactQuery';
 import { useSnackbarContext } from '@/contexts/Snackbar';
-import { ResponseError } from '@/utils/types';
-// import { queryClient as queryClientMain } from '../reactQuery';
 
 export type CreateQueryProps<ReturnData = unknown> = {
   queriesKeys: readonly (string | number | object)[];
@@ -68,7 +66,7 @@ export function useCreateQuery<ReturnData = any>({
     if (returnQuery.isError) {
       const typedError = returnQuery.error as ResponseError;
       const { data } = typedError;
-      const message = data?.message || 'Ocorreu um erro inesperado';
+      const message = data?.message ?? typedError.message;
 
       if (showToastOnError) {
         dispatchSnackbar({

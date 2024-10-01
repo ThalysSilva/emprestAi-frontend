@@ -35,4 +35,12 @@ export type PaginationData<T> = {
   content?: T[];
 };
 
+export type ResponseError = Error & {
+  data?: {
+    message: string;
+    error: string;
+    statusCode: number;
+  };
+};
+
 export type Params = Record<string, string | string[] | number | number[]>;

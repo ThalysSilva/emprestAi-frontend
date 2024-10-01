@@ -15,12 +15,10 @@ export type ColumnConfig<KeyName extends string, Value> = {
   sortable?: boolean;
 };
 
-// Ajuste na definição do tipo DataTable
 
 export type DataTableItem<KeyName> = Record<KeyName, any>;
 export type DataTable<KeyName> = DataTableItem<KeyName>[];
 
-// Ajuste na definição do tipo ColumnsConfig
 export type ColumnsConfig<T extends DataTable> = {
   [K in keyof T[number]]: ColumnConfig<K, T[number][K]>;
 }[keyof T[number]][];

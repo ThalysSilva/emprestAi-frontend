@@ -1,4 +1,4 @@
-import { PaginationData, Params, RouteName } from '../types';
+import { PaginationData, Params, RouteName, ResponseError } from '../types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { baseUrl } from '@/config/service';
 import { useEffect } from 'react';
@@ -6,7 +6,6 @@ import { InfiniteQueryOptions } from '@/@types/reactQuery';
 import { requestFetch } from '../middleware';
 import { useSnackbarContext } from '@/contexts/Snackbar';
 import { getNextPageParam, getQueryClient, selectDataInfinityQuery } from '../reactQuery';
-import { ResponseError } from '@/utils/types';
 
 export type CreateQueryProps<ReturnDataItem = unknown> = {
   infiniteQueryOptions?: Partial<InfiniteQueryOptions<PaginationData<ReturnDataItem>>>;
@@ -78,12 +77,13 @@ export function useCreateInfiniteQuery<ReturnDataItem = any>({
   useEffect(() => {
     if (!returnQuery.isError) return;
 
-    const data = returnQuery.error as ResponseError;
-    const message = data.message ?? 'Ocorreu um erro inesperado';
+    const typedError = returnQuery.error as ResponseError;
+    const { data } = typedError;
+    const message = data?.message ?? typedError.message;
 
     if (showToastOnError) {
       dispatchSnackbar({
-        message: message,
+        message,
         type: 'error',
       });
     }

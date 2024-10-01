@@ -4,14 +4,10 @@ import { CustomFetchInfiniteQueryOptions, CustomFetchQueryOptions } from '@/@typ
 import { requestFetch } from '@/services/middleware';
 import { getNextPageParam, getQueryClient } from '@/services/reactQuery';
 import { PaginationData } from '@/services/types';
-import { dehydrate, HydrationBoundary, QueryKey } from '@tanstack/react-query';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { ReactNode } from 'react';
-import { CallRouteParams } from './types';
+import { CallRouteParams, DataSet } from './types';
 
-type DataSet = {
-  queryKey: QueryKey;
-  data: unknown;
-};
 
 type Props<ReturnData = unknown> = {
   children: ReactNode;

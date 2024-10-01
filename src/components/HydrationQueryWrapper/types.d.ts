@@ -3,6 +3,11 @@ import { baseUrl } from '@/config/service';
 import { PaginationData, Params, RouteName } from '@/services/types';
 import { QueryKey } from '@tanstack/react-query';
 
+export type DataSet = {
+  queryKey: QueryKey;
+  data: unknown;
+};
+
 export type CallRouteParams<T = any> = {
   routeName: RouteName;
   params?: Params;

@@ -1,9 +1,8 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { requestFetch } from '../middleware';
 import { MutateOptions } from '@/@types/reactQuery';
-import { Params, RouteName } from '../types';
+import { Params, RouteName, ResponseError } from '../types';
 import { useSnackbarContext } from '@/contexts/Snackbar';
-import { ResponseError } from '@/utils/types';
 
 export type CreateMutationProps<T = any> = {
   mutateOptions?: MutateOptions<T, any, any, any>;
@@ -34,9 +33,9 @@ export function useCreateMutation<ReturnData = any, Payload = any>({
   const queryClient = useQueryClient();
   const { dispatchSnackbar } = useSnackbarContext();
 
-  function onError(error: Error) {
-    const { data } = error as ResponseError;
-    const message = data.message ?? 'Erro ao realizar a operação';
+  function onError(error: ResponseError) {
+    const { data } = error;
+    const message = data?.message ?? error.message;
 
     if (showToastOnError) {
       dispatchSnackbar({

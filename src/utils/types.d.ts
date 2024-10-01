@@ -36,10 +36,3 @@ export type SelectorReturnType<Selector, Type> = Selector extends (state: any) =
   ? R
   : Type;
 
-export type ResponseError = Error & {
-  data: {
-    message: string;
-    error: string;
-    statusCode: number;
-  };
-};
