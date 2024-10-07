@@ -1,3 +1,5 @@
+import { ObjectKey } from '@/utils/types';
+
 export type Column<T = string> = {
   columnSize?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   render?: (value: any) => JSX.Element;
@@ -7,7 +9,7 @@ export type Column<T = string> = {
   sortable?: boolean;
 };
 
-export type ColumnConfig<KeyName extends string, Value> = {
+export type ColumnConfig<KeyName extends ObjectKey, Value> = {
   columnSize?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   render?: (value: Value) => JSX.Element;
   keyName: KeyName;
@@ -15,13 +17,19 @@ export type ColumnConfig<KeyName extends string, Value> = {
   sortable?: boolean;
 };
 
+export type DataTable<KeyName extends ObjectKey> = DataTableItem<KeyName>[];
 
-export type DataTableItem<KeyName> = Record<KeyName, any>;
-export type DataTable<KeyName> = DataTableItem<KeyName>[];
+export type DataTableItem<KeyName extends ObjectKey> = {
+  [key in KeyName]: any;
+};
 
-export type ColumnsConfig<T extends DataTable> = {
-  [K in keyof T[number]]: ColumnConfig<K, T[number][K]>;
-}[keyof T[number]][];
+type MappedColumnsConfig<DataObject> = {
+  [Key in keyof DataObject]: ColumnConfig<Key, DataObject[Key]>;
+}[keyof DataObject];
+
+export type ColumnsConfig<DataObjectArray extends DataTable<ObjectKey>> = MappedColumnsConfig<
+  DataObjectArray[number]
+>[];
 
 export type ColumnStyle<T = string> = {
   className: string;

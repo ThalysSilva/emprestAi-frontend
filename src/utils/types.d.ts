@@ -16,6 +16,7 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
 };
 
+export type ObjectKey = string | number | symbol;
 export type SortDirection = 'asc' | 'desc';
 
 export type GetInnerKeysOfObjectsArray<T> = keyof T[0];
