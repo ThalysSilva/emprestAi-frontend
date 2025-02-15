@@ -83,7 +83,6 @@ export async function requestFetch<ReturnDataType, PayloadType>({
     uri: string;
   };
   const headers = {
-    'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
     Accept: 'application/json',
     ...(config?.headers ?? {}),
